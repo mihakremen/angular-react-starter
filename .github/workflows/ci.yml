@@ -26,10 +26,16 @@ jobs:
       with:
         node-version: '12.x'
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: npm ci
+      
+    - name: test app
+      run: npm run test --verbose
+      
+      
+ #     run: yarn install --frozen-lockfile
 
-    - name: build and test the app
-      run: yarn --cwd run --verbose
+ #   - name: build and test the app
+ #     run: yarn --cwd run --verbose
       
     
 

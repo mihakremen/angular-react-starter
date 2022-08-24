@@ -25,14 +25,15 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16.x'
-#    - name: go to angular dir
-#      run: cd ./angular && pwd
+
     - name: Install dependencies
-    #убрать коммент снизу, если переход в директорию не поможет
-      run: cd ./angular && pwd && yarn install --frozen-lockfile #--modules-folder /home/runner/work/angular-react-starter/angular
+
+      run: cd /home/runner/work/angular-react-starter/angular && pwd && yarn install --frozen-lockfile #--modules-folder /home/runner/work/angular-react-starter/angular
+
+#      run: cd ./angular && pwd && npm ci
 
     - name: build and test the app
-      run: cd ./angular && pwd && yarn run --verbose
+      run: cd /home/runner/work/angular-react-starter/angular && pwd && yarn build --verbose
 
 
       

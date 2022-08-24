@@ -28,8 +28,8 @@ jobs:
     - name: Install dependencies
       run: yarn install --modules-folder /home/runner/work/angular-react-starter/angular
 
- #   - name: build and test the app
- #     run: yarn --cwd run --verbose
+    - name: build and test the app
+      run: yarn build --verbose
       
     
 

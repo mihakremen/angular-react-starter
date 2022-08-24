@@ -25,11 +25,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '12.x'
-    - name: go to anguldr dir
-#      run: cd ./angular
+    - name: go to angular dir
+      run: cd ./angular
     - name: Install dependencies
     #убрать коммент снизу, если переход в директорию не поможет
-      run: cd ./angular && yarn install #--modules-folder /home/runner/work/angular-react-starter/angular
+      run: yarn install #--modules-folder /home/runner/work/angular-react-starter/angular
 
     - name: build and test the app
       run: yarn build --verbose

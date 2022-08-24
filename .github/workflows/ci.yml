@@ -36,11 +36,11 @@ jobs:
 
 
     - name: start yarn test with Xvfb
-      run: cd ./angular && /usr/bin/xvfb-run --auto-servernum yarn test
+      run: cd ./angular && /usr/bin/xvfb-run yarn test #--auto-servernum yarn test
 
 
-#    - name: build and test the app
-#      run: cd ./angular && pwd && yarn test
+    - name: build the app
+      run: cd ./angular && yarn run
 #      run: cd ./angular && pwd && npm run build --verbose
 
 

@@ -29,7 +29,9 @@ jobs:
       run: yarn install --modules-folder /home/runner/work/angular-react-starter/angular
 
     - name: build and test the app
-      run: yarn build --verbose
+      run: yarn build --verbose --modules-folder /home/runner/work/angular-react-starter/angular
+
+
       
     
 

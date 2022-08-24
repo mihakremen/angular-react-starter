@@ -32,8 +32,14 @@ jobs:
 
 #      run: cd ./angular && npm ci
 
-    - name: build and test the app
-      run: cd ./angular && pwd && yarn test
+#    - name: build and test the app
+    - name: Run headless test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: yarn test
+        
+        
+#      run: cd ./angular && pwd && yarn test
 #      run: cd ./angular && pwd && npm run build --verbose
 
       

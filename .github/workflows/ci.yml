@@ -35,9 +35,12 @@ jobs:
       run: /usr/bin/sudo apt-get install -y xvfb
 
 
-    - name: start yarn test with Xvfb
-      run: cd ./angular && /usr/bin/xvfb-run yarn test #--auto-servernum yarn test
+#    - name: start yarn test with Xvfb
+#      run: cd ./angular && /usr/bin/xvfb-run yarn test #--auto-servernum yarn test
 
+
+    - name: start yarn test
+      run: cd ./angular && yarn test --browsers=ChromeHeadless
 
     - name: build the app
       run: cd ./angular && yarn run

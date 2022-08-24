@@ -14,9 +14,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-#    strategy:
-#      matrix:
-#        node-version: [12.x, 14.x, 16.x]
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -40,7 +40,7 @@ jobs:
 
 
     - name: start yarn test
-      run: cd ./angular && npm test --browsers=ChromeHeadless
+      run: cd ./angular && npm test -- --browsers=ChromeHeadless
 
     - name: build the app
 #      run: cd ./angular && yarn run

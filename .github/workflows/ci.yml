@@ -33,7 +33,7 @@ jobs:
 #      run: cd ./angular && npm ci
 
     - name: build and test the app
-      run: cd ./angular && pwd && yarn test --verbose
+      run: cd ./angular && pwd && yarn test
 #      run: cd ./angular && pwd && npm run build --verbose
 
       

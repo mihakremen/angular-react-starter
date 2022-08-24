@@ -36,7 +36,8 @@ jobs:
     - name: Run headless test
       uses: GabrielBB/xvfb-action@v1
       with:
-        run: cd ./angular && yarn test
+        working-directory: ./angular
+        run: yarn test
         
         
 #      run: cd ./angular && pwd && yarn test

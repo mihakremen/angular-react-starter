@@ -34,7 +34,7 @@ jobs:
 
     - name: build and test the app
 #      run: cd ./angular && pwd && yarn build --verbose
-      run: cd ./angular && pwd && yarn build --verbose
+      run: cd ./angular && pwd && npm build --verbose
 
       
     

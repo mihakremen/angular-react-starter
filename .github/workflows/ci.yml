@@ -27,8 +27,8 @@ jobs:
         node-version: '16.x'
 
     - name: Install dependencies
-#      run: cd ./angular && npm ci
-      run: cd ./angular && yarn install --frozen-lockfile --check-files #--modules-folder /home/runner/work/angular-react-starter/angular
+      run: cd ./angular && npm ci
+#      run: cd ./angular && yarn install --frozen-lockfile --check-files #--modules-folder /home/runner/work/angular-react-starter/angular
 
 
     - name: install/upgrade xvfb 
@@ -40,11 +40,11 @@ jobs:
 
 
     - name: start yarn test
-      run: cd ./angular && yarn test --browsers=ChromeHeadless
+      run: cd ./angular && npm test --browsers=ChromeHeadless
 
     - name: build the app
-      run: cd ./angular && yarn run
-#      run: cd ./angular && pwd && npm run build --verbose
+#      run: cd ./angular && yarn run
+      run: cd ./angular && pwd && npm run build --verbose
 
 
 #    - name: Run headless test

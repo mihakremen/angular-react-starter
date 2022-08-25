@@ -29,7 +29,7 @@ jobs:
 
 
     - name: start yarn test
-      run: cd ./angular && yarn version && yarn test --no-watch --no-progress # --browsers=ChromeHeadless --no-watch
+      run: yarn test --no-watch --no-progress # --browsers=ChromeHeadless --no-watch
 
     - name: build the app
       run: cd ./angular && yarn build

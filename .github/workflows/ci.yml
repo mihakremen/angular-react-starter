@@ -27,8 +27,8 @@ jobs:
         node-version: '16.x'
 
     - name: Install dependencies
-#      run: cd ./angular && npm ci
-      run: cd ./angular && yarn install --frozen-lockfile --check-files #--modules-folder /home/runner/work/angular-react-starter/angular
+      run: cd ./angular && npm ci
+ #     run: cd ./angular && yarn install --frozen-lockfile --check-files #--modules-folder /home/runner/work/angular-react-starter/angular
 
 
 #    - name: install/upgrade xvfb 
@@ -36,22 +36,23 @@ jobs:
 
 
 #    - name: start yarn test with Xvfb
-#      run: cd ./angular && /usr/bin/xvfb-run yarn test #--auto-servernum yarn test
+#      run: cd ./angular && /usr/bin/xvfb-run yarn test --auto-servernum yarn test
 
+    - name: Run headless test
+      uses: GabrielBB/xvfb-action@v1.6
+      with:
+        working-directory: ./angular
+        run: npm run test --no-watch --no-progress
 
-    - name: start yarn test
-      run: cd ./angular && yarn version && yarn test --browsers=ChromeHeadless --no-watch --no-progress
+#    - name: start yarn test
+#      run: cd ./angular && yarn version && yarn test --browsers=ChromeHeadless --no-watch --no-progress
 
     - name: build the app
-      run: cd ./angular && yarn build
-#      run: cd ./angular && pwd && npm run build --verbose
+#      run: cd ./angular && yarn build
+      run: cd ./angular && npm run build
 
 
-#    - name: Run headless test
- #     uses: GabrielBB/xvfb-action@v1.6
-   #   with:
-   #     working-directory: ./angular
-      #  run: yarn test
+
         
         
 

@@ -11,14 +11,10 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
-
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x, 20.x]
-       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    defaults:
+      run:
+        working-directory: ./angular
 
     steps:
     - uses: actions/checkout@v3
@@ -27,15 +23,13 @@ jobs:
       with:
         node-version: '18.x'
 
-    - uses: browniebroke/yarn-upgrade-action@v1
-
     - name: Install dependencies
- #     run: cd ./angular && npm ci
-      run: cd ./angular && yarn install --frozen-lockfile #--modules-folder /home/runner/work/angular-react-starter/angular
+ #     run: npm ci
+      run: yarn install --frozen-lockfile
 
 
     - name: start yarn test
-      run: cd ./angular && yarn version && yarn test --browsers=ChromeHeadless --no-watch
+      run: cd ./angular && yarn version && yarn test --no-watch --no-progress # --browsers=ChromeHeadless --no-watch
 
     - name: build the app
       run: cd ./angular && yarn build

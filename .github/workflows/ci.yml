@@ -40,11 +40,11 @@ jobs:
 
 
     - name: start yarn test
-      run: cd ./angular && npm test -- --browsers=ChromeHeadless
+      run: cd ./angular && yarn test -- --browsers=ChromeHeadless --no-watch --no-progress
 
     - name: build the app
-#      run: cd ./angular && yarn run
-      run: cd ./angular && pwd && npm run build --verbose
+      run: cd ./angular && yarn run
+#      run: cd ./angular && pwd && npm run build --verbose
 
 
 #    - name: Run headless test

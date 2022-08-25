@@ -28,7 +28,7 @@ jobs:
         node-version: '16.x'
 
     - name: Install dependencies
-      run: cd ./angular && npm ci && npm fund 
+      run: cd ./angular && npm ci --quiet
  #     run: cd ./angular && yarn install --frozen-lockfile --check-files #--modules-folder /home/runner/work/angular-react-starter/angular
 
 
@@ -43,7 +43,7 @@ jobs:
       uses: GabrielBB/xvfb-action@v1.6
       with:
         working-directory: ./angular
-        run: npm run test -- --no-watch --no-progress --browsers=xvfb
+        run: npm run test -- --no-watch --browsers=PhantomJS
 
 #    - name: start yarn test
 #      run: cd ./angular && yarn version && yarn test --browsers=ChromeHeadless --no-watch --no-progress

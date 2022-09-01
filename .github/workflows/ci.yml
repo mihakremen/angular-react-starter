@@ -17,7 +17,8 @@ jobs:
     - id: time_starts
       working-directory: /usr/bin
       shell: bash
-      run: echo "::set-output name=time_starts::$(date)"
+#      run: echo "::set-output name=time_starts::$(date)"
+      run: time_starts_const = $(date -d "$1" +%s)
       
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -65,13 +66,15 @@ jobs:
     - id: time_finish
       working-directory: /usr/bin
       shell: bash
-      run: echo "::set-output name=time_finish::$(date +%s)"
+#      run: echo "::set-output name=time_finish::$(date +%s)"
+      run: time_finish_const = $(date -d "$2" +%s)
       
     - id: time_delay
       working-directory: /usr/bin
       shell: bash
-      run: echo "::set-output name=time_finish::$(date +%s)"
-        
+#      run: echo "::set-output name=time_finish::$(date +%s)"
+      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
+       
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1
       with:

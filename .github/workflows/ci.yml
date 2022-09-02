@@ -73,7 +73,7 @@ jobs:
 #      run: echo "::set-output name=time_finish::$(date +%s)"
       run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
         
-     - id: time_count_diff
+    - id: time_count_diff
       if: ${{ always() }}
       working-directory: /usr/bin
       shell: bash   

@@ -9,10 +9,6 @@ on:
 jobs:
   testing_and_building_angular_app:
     runs-on: ubuntu-latest
-#    env:
-#      time_starts: $(date +%X)
-#      time_finishes: $(date +%X)
-#      time_diff: $time_starts - $time_finishes
     defaults:
       run:
         working-directory: ./angular
@@ -22,7 +18,9 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_starts::$(date)"
-      run: echo "time_starts=$(date +%X)" >> $GITHUB_ENV
+      run: |
+        echo "time_starts=$(date +%X)" >> $GITHUB_ENV
+        SECONDS = 0      
       
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -78,7 +76,7 @@ jobs:
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
 #      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
-      run: echo "time_diff = $(( ${{ env.time_finishes }} - ${{ env.time_starts }} ))" >> $GITHUB_ENV
+      run: echo " time_diff = $(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1

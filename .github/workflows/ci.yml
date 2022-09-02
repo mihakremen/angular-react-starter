@@ -90,6 +90,6 @@ jobs:
   #      body: ${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. Time start ${{steps.time_starts.outputs.time_starts}}. Time stop ${{steps.time_finish.outputs.time_finish}}.
         body: > 
            ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
-           has ${{ job.status }}. Time start ${{steps.time_starts.outputs.time_starts}}. 
-           Time stop ${{steps.time_finish.outputs.time_finish}}. Delay: ${{ env.time_diff }}
+           has ${{ job.status }} _-_ Start-ime: ${{ steps.time_starts.outputs.time_starts }} _-_ 
+           Stop-time: {{ steps.time_finish.outputs.time_finish }} _-_ The proccess took: ${{ env.time_diff }} seconds.
 

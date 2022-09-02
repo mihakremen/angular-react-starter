@@ -12,13 +12,17 @@ jobs:
     defaults:
       run:
         working-directory: ./angular
+        
+    outputs:
+      build_job_status_output: ${{ steps.output_job_status.outputs.build_job_status }}
+      time_diff_output: ${{ steps.output_time_diff.outputs.time_diff_out }}
 
     steps:
+
     - id: time_starts
       working-directory: /usr/bin
       shell: bash
-      run: |
-        echo "time_starts=$(date +%s)" >> $GITHUB_ENV    
+      run: echo "time_starts=$(date +%s)" >> $GITHUB_ENV    
         
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -63,19 +67,45 @@ jobs:
         labels: ${{ steps.metadata.outputs.labels }}
         
     - id: time_finish
+      if: ${{ always() }}
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
       run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
-      
-    - id: time_diff
+        
+    - id: time_count_diff
+      if: ${{ always() }}
       working-directory: /usr/bin
-      shell: bash
+      shell: bash   
       run: echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
-    - name: time_echo
-      run: echo ${{ env.time_finishes }} ${{ env.time_starts }} ${{ env.time_diff }}
+    - id: output_time_diff
+      if: ${{ always() }}
+      run: echo "::set-output name=time_diff_out::${{ env.time_diff }}"
       
+    - id: output_job_status
+      if: ${{ always() }}
+      run: echo "::set-output name=build_job_status::${{ job.status }}"
+
+#    - name: Send mail
+#      uses: dawidd6/action-send-mail@v3.6.1
+#      with:
+#        server_address: smtp.mail.ru
+#        server_port: 465
+#        username: angularpipeline@mail.ru
+#        password: ${{ secrets.MAIL_PAS }}
+#        subject: ${{ github.job }} job
+#        to: mihakremen@gmail.com
+#        from: github angular workflow
+#        body: >
+#           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
+#           has ${{ job.status }}. The process took ${{env.time_diff}} seconds
+
+  sending_mail:
+    if: ${{ always() }}
+    needs: [testing_and_building_angular_app]
+    runs-on: ubuntu-latest
+    steps:
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1
       with:
@@ -86,7 +116,10 @@ jobs:
         subject: ${{ github.job }} job
         to: mihakremen@gmail.com
         from: github angular workflow
-#        body: '${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. ${{env.time_starts}}. ${{env.time_finishes}}. ${{env.time_diff}} seconds.'
         body: >
-           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
-           has ${{ job.status }}. The process took ${{env.time_diff}} seconds
+           testing_and_building_angular_app job in workflow ${{ github.workflow }} 
+           of ${{ github.repository }} has ended up with
+           ${{needs.testing_and_building_angular_app.outputs.build_job_status_output}} status. 
+           The process took ${{needs.testing_and_building_angular_app.outputs.time_diff_output}} 
+           seconds.
+     

@@ -2,7 +2,7 @@ name: Angular starter CI
 
 on:
   push:
-#    branches: [ "master", "add-time-and-e-mail", "handmade-nginx" ]
+#    branches: [ "master", "nginx-raspi" ]
   pull_request:
     branches: [ "master" ]
 
@@ -22,9 +22,7 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_starts::$(date)"
-      run: |
-        echo $(date -d "$1" +%s)
-        echo "time_starts=$(date +%X)" >> $GITHUB_ENV
+      run: echo "time_starts=$(date +%X)" >> $GITHUB_ENV
       
     - uses: actions/checkout@v3
     - name: Use Node.js

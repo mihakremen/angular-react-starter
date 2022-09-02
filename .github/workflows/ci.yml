@@ -66,14 +66,18 @@ jobs:
         tags: ${{ steps.metadata.outputs.tags }}
         labels: ${{ steps.metadata.outputs.labels }}
         
-    - id: time_finish_and_count
+    - id: time_finish
       if: ${{ always() }}
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run: |
-        echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
-        echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
+      run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
+        
+     - id: time_count_diff
+      if: ${{ always() }}
+      working-directory: /usr/bin
+      shell: bash   
+      run: echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
     - id: output_time_diff
       if: ${{ always() }}

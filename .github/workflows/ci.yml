@@ -9,10 +9,10 @@ on:
 jobs:
   testing_and_building_angular_app:
     runs-on: ubuntu-latest
-    env:
-      time_starts: $(date +%X)
-      time_finishes: $(date +%X)
-      time_diff: $time_starts - $time_finishes
+#    env:
+#      time_starts: $(date +%X)
+#      time_finishes: $(date +%X)
+#      time_diff: $time_starts - $time_finishes
     defaults:
       run:
         working-directory: ./angular
@@ -22,7 +22,9 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_starts::$(date)"
-      run: echo $(date -d "$1" +%s)
+      run: |
+        echo $(date -d "$1" +%s)
+        echo "time_starts=$(date +%X)" >> $GITHUB_ENV
       
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -71,14 +73,14 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run: $time_finishes = $(date +%X)
+      run:  echo "time_finishes=$(date +%X)" >> $GITHUB_ENV
       
     - id: time_delay
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
 #      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
-      run: $time_diff = ($time_starts - $time_finishes)
+      run: echo "time_diff = (${{ env.time_starts }} - ${{ time_finishes }})"
       
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1
@@ -94,5 +96,5 @@ jobs:
         body: > 
            ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
            has ${{ job.status }}. Time start ${{steps.time_starts.outputs.time_starts}}. 
-           Time stop ${{steps.time_finish.outputs.time_finish}}.
+           Time stop ${{steps.time_finish.outputs.time_finish}}. Delay: ${{ env.time_diff }}
 

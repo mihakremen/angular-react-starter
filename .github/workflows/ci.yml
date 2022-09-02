@@ -112,5 +112,5 @@ jobs:
         from: github angular workflow
         body: >
           testing_and_building_angular_app job in workflow ${{ github.workflow }} of ${{ github.repository }}
-          has ended up with ${{ jobs.testing_and_building_angular_app.status }} status. The process took ${{env.time_diff}} seconds.
+          has ended up with ${{ jobs.testing_and_building_angular_app.result }} status. The process took ${{env.time_diff}} seconds.
      

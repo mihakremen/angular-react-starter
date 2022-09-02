@@ -1,5 +1,4 @@
-version: "2"
-#pull: ghcr.io/mihakremen/angular-react-starter:handmade-nginx
+version: "3"
 services:
   nginx:
     image: ghcr.io/mihakremen/angular-react-starter:master

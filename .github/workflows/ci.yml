@@ -33,9 +33,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-#    - name: remind about test
-#      run: echo "#######  DONT FORGET ABOUT the TEST!!!!!!! "
-
     - name: start test
       run: npm run test -- --browsers=ChromeHeadless --no-watch 
       
@@ -70,7 +67,6 @@ jobs:
       if: ${{ always() }}
       working-directory: /usr/bin
       shell: bash
-#      run: echo "::set-output name=time_finish::$(date +%s)"
       run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
         
     - id: time_count_diff
@@ -87,19 +83,6 @@ jobs:
       if: ${{ always() }}
       run: echo "::set-output name=build_job_status::${{ job.status }}"
 
-#    - name: Send mail
-#      uses: dawidd6/action-send-mail@v3.6.1
-#      with:
-#        server_address: smtp.mail.ru
-#        server_port: 465
-#        username: angularpipeline@mail.ru
-#        password: ${{ secrets.MAIL_PAS }}
-#        subject: ${{ github.job }} job
-#        to: mihakremen@gmail.com
-#        from: github angular workflow
-#        body: >
-#           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
-#           has ${{ job.status }}. The process took ${{env.time_diff}} seconds
 
   sending_mail:
     if: ${{ always() }}

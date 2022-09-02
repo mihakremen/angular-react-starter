@@ -77,9 +77,8 @@ jobs:
       run: echo ${{ env.time_finishes }} ${{ env.time_starts }} ${{ env.time_diff }}
       
     - id: output_job_status
-      run:  echo "::set-output name=status::${{ job.status }}
-    outputs:
-      build_job_status: ${{ steps.output_job_status.outputs.status }}
+      run: echo "job_status=${{ job.status }}" >> $GITHUB_ENV
+
 #    - name: Send mail
 #      uses: dawidd6/action-send-mail@v3.6.1
 #      with:
@@ -111,5 +110,5 @@ jobs:
         from: github angular workflow
         body: >
            testing_and_building_angular_app job in workflow ${{ github.workflow }} of ${{ github.repository }}
-           has ended up with ${{ jobs.testing_and_building_angular_app.outputs.build_job_status }} status. The process took ${{env.time_diff}} seconds.
+           has ended up with ${{ env.job_status }} status. The process took ${{env.time_diff}} seconds.
      

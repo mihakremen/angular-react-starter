@@ -17,7 +17,6 @@ jobs:
     - id: time_starts
       working-directory: /usr/bin
       shell: bash
-#      run: echo "::set-output name=time_starts::$(date)"
       run: |
         echo "time_starts=$(date +%s)" >> $GITHUB_ENV    
         
@@ -61,7 +60,6 @@ jobs:
         context: .
         push: true
         tags: ${{ steps.metadata.outputs.tags }}
-     #   tags: ghcr.io/${{ github.repository }}:$(date +%s)
         labels: ${{ steps.metadata.outputs.labels }}
         
     - id: time_finish
@@ -73,11 +71,9 @@ jobs:
     - id: time_diff
       working-directory: /usr/bin
       shell: bash
-#      run: echo "::set-output name=time_finish::$(date +%s)"
       run: echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
     - name: time_echo
-#      run: echo ${{ steps.time_finish.outputs.time_finish }} ${{ steps.time_finish.outputs.time_starts }} ${{ env.time_diff }}
       run: echo ${{ env.time_finishes }} ${{ env.time_starts }} ${{ env.time_diff }}
       
     - name: Send mail
@@ -90,9 +86,7 @@ jobs:
         subject: ${{ github.job }} job
         to: mihakremen@gmail.com
         from: github angular workflow
-        body: '${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. ${{env.time_starts}}. ${{env.time_finishes}}. ${{env.time_diff}} seconds.'
-#        body: >
-#           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
-#           has ${{ job.status }} _-_ Start-time: ${{ steps.time_starts.outputs.time_starts }} _-_ 
-#           Stop-time: {{ steps.time_finish.outputs.time_finish }} _-_ The proccess took: ${{ env.time_diff }} seconds.
-
+#        body: '${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. ${{env.time_starts}}. ${{env.time_finishes}}. ${{env.time_diff}} seconds.'
+        body: >
+           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
+           has ${{ job.status }}. The process took ${{env.time_diff}} seconds

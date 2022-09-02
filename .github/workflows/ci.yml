@@ -9,6 +9,10 @@ on:
 jobs:
   testing_and_building_angular_app:
     runs-on: ubuntu-latest
+    env:
+      time_starts: $(date +%X)
+      time_finishes: $(date +%X)
+      time_diff: $time_starts - $time_finishes
     defaults:
       run:
         working-directory: ./angular
@@ -18,7 +22,7 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_starts::$(date)"
-      run: time_starts_const = $(date -d "$1" +%s)
+      run: echo $(date -d "$1" +%s)
       
     - uses: actions/checkout@v3
     - name: Use Node.js
@@ -67,14 +71,15 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run: time_finish_const = $(date -d "$2" +%s)
+      run: $time_finishes = $(date +%X)
       
     - id: time_delay
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
-       
+#      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
+      run: $time_diff = ($time_starts - $time_finishes)
+      
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1
       with:

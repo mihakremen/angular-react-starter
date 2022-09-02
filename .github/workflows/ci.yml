@@ -68,17 +68,17 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run:  echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
+      run:  echo "time_finishes = $(date +%s)" >> $GITHUB_ENV
       
-    - id: time_delay
+    - id: time_diff
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-#      run: delay = $(( ( ${{steps.time_starts.time_starts_const}} - ${{steps.time_finish.time_finish_const}}) )) 
-      run: echo " time_diff = $(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
+      run: echo "time_diff = $(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
     - name: time_echo
-      run: echo ${{ steps.time_finish.outputs.time_finish }} ${{ steps.time_finish.outputs.time_starts }} ${{ env.time_diff }}
+#      run: echo ${{ steps.time_finish.outputs.time_finish }} ${{ steps.time_finish.outputs.time_starts }} ${{ env.time_diff }}
+      run: echo ${{ env.time_finish }} ${{ env.time_starts }} ${{ env.time_diff }}
       
     - name: Send mail
       uses: dawidd6/action-send-mail@v3.6.1
@@ -90,7 +90,7 @@ jobs:
         subject: ${{ github.job }} job
         to: mihakremen@gmail.com
         from: github angular workflow
-        body: '${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. ${{steps.time_starts.outputs.time_starts}}. Time stop ${{steps.time_finish.outputs.time_finish}}. The proccess took ${{ env.time_diff }} seconds.'
+        body: '${{ github.job }} job in workflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}. ${{ env.time_starts}}. Stop-time ${{ env.time_finish}}. The proccess took ${{ env.time_diff }} seconds.'
 #        body: >
 #           ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }}
 #           has ${{ job.status }} _-_ Start-time: ${{ steps.time_starts.outputs.time_starts }} _-_ 

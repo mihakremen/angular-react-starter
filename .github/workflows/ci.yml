@@ -68,7 +68,7 @@ jobs:
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run:  echo "time_finishes = $(date +%s)" >> $GITHUB_ENV
+      run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
       
     - id: time_diff
       working-directory: /usr/bin

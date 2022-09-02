@@ -66,22 +66,22 @@ jobs:
         tags: ${{ steps.metadata.outputs.tags }}
         labels: ${{ steps.metadata.outputs.labels }}
         
-    - id: time_finish
+    - name: time_finish_and_count
+      if: ${{ always() }}
       working-directory: /usr/bin
       shell: bash
 #      run: echo "::set-output name=time_finish::$(date +%s)"
-      run: echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
-      
-    - id: time_diff
-      working-directory: /usr/bin
-      shell: bash
-      run: echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
+      run: |
+        echo "time_finishes=$(date +%s)" >> $GITHUB_ENV
+        echo "time_diff=$(( ${{ env.time_finishes }} - ${{ env.time_starts }} )) " >> $GITHUB_ENV
       
     - id: output_time_diff
-      run: echo "::set-output name=time_diff_out::${{ env.time_diff }}
+      if: ${{ always() }}
+      run: echo "::set-output name=time_diff_out::${{ env.time_diff }}"
       
     - id: output_job_status
-      run: echo "::set-output name=build_job_status::${{ job.status }}
+      if: ${{ always() }}
+      run: echo "::set-output name=build_job_status::${{ job.status }}"
 
 #    - name: Send mail
 #      uses: dawidd6/action-send-mail@v3.6.1

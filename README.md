@@ -1,5 +1,5 @@
 # Angular 14 & React 18 Examples Starter 
-## (interesnee test task)
+## (Test task)
 
 Description: angular is being tested, built, containerized and pushed to registry. Nginx works with proxy to localhost:8080 and doesn't require root. The only thing, to run nginx on background and use console we need an option "-d" in "docker compose up". When I try to turn nginx daemon on in .conf file the container stopes with code(0). I tried to google and solve this problem but deadline is too close. I'll try it on weekens one more time but anyway. 
 ### Suggestion: 
